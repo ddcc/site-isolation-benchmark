@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import io
 import re
 import sys
 import time
@@ -103,7 +104,7 @@ def get_chrome_options():
 def collect_data(driver, file_name):
   driver.get('chrome://histograms')
   content = driver.page_source
-  with open(file_name + ".html", "w") as html_file:
+  with io.open(file_name + ".html", "w") as html_file:
     html_file.write(content)
 
   # This is not strictly necessary, but saving a version of the file without
@@ -113,7 +114,7 @@ def collect_data(driver, file_name):
   content = re.sub("<hr />", "-----", content)
   content = re.sub("<pre>", "", content)
   content = re.sub("</pre>", "", content)
-  with open(file_name + ".txt", "w") as text_file:
+  with io.open(file_name + ".txt", "w") as text_file:
     text_file.write(content)
 
 # This method creates a new instance of Chrome, loads the URL specified and
