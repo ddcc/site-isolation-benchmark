@@ -120,13 +120,9 @@ def collect_data(driver, file_name):
 # This method creates a new instance of Chrome, loads the URL specified and
 # captures the UMA histograms. It is used to run multiple iterations in
 # the specified isolation mode.
-def benchmark_url(url, disable_isolation):
+def benchmark_url(url):
   driver = None
   options = get_chrome_options()
-  if disable_isolation:
-    options.add_argument("--disable-site-isolation-trials")
-  else:
-    options.add_argument("--site-per-process")
 
   for i in range(0, benchmark_iterations):
     print "Starting Chrome"
@@ -151,11 +147,7 @@ def benchmark_url(url, disable_isolation):
     sleep("Waiting for histograms", 70)
 
     print "Collect data[%s]: %s" % (i, url)
-    if disable_isolation:
-      file_name = "histograms-%s-%s-noisolation" % (urlparse(url)[1], i+1)
-    else:
-      file_name = "histograms-%s-%s" % (urlparse(url)[1], i+1)
-    collect_data(driver, file_name)
+    collect_data(driver, "histograms-%s-%s" % (urlparse(url)[1], i+1))
     print "Collect data[%s]: %s - complete!" % (i, url)
     driver.quit()
     
@@ -187,5 +179,4 @@ if __name__== "__main__":
 
   for url in urls_list:
     print "benchmark: %s" % (url)
-    benchmark_url(url, False)
-    benchmark_url(url, True)
+    benchmark_url(url)
