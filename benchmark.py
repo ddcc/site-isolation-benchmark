@@ -20,7 +20,7 @@ urls_list = [
   # Baseline with no out-of-process iframes.
   'https://web.evilbit.io/empty.html',
   # Baseline with single out-of-process iframe which is empty.
-  'http://csreis.github.io/tests/cross-site-iframe-minimal.html',
+  # 'http://csreis.github.io/tests/cross-site-iframe-minimal.html',
   # Games, #1
   'https://www.twitch.tv',
   # Games, #50
@@ -57,7 +57,7 @@ else:
 chrome_user_data_path = './user-profile/'
 
 # Number of iterations to load each URL in the benchmark
-benchmark_iterations = 5
+benchmark_iterations = 3
 
 # A helper sleep function which prints countdown in seconds to the console.
 def sleep(msg, seconds):
